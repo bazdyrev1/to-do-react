@@ -14,11 +14,11 @@ const initialFormData = {
 }
 
 const Todo = () => {
-  const [tab, setTab ] = useState(0);
+  const [tab, setTab] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenDisplayTodo, setIsOpenDisplayTodo] = useState(false);
-  const [todo, setTodos] = useState([]);
-  const [formData, setFormData] = useState(initialFormData)
+  const [todos, setTodos] = useState([]);
+  const [formData, setFormData] = useState(initialFormData);
 
   const HandlerOpenDialog = () => setIsOpen((prevState) => !prevState)
 
