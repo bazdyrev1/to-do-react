@@ -8,32 +8,38 @@ import Button from '@mui/material/Button';
 import './DialogModal.css';
 
 
-const DialogModal = () => {
+const DialogModal = ({
+    isOpen,
+    handleOpenDialog,
+    formData,
+    handleSetFieldValue,
+    handleSetTodoOnSubmit
+}) => {
     return (
-    <Dialog open={true}>
-        <DialogTitle>Add new Todo</DialogTitle>
+    <Dialog open={isOpen} onClose={handleOpenDialog}>
+        <DialogTitle>{formData.isEdit ? 'Edit Todo' : 'Add new Todo'}</DialogTitle>
 
         <DialogContent>
-            <form onSubmit={()=>{}}>
+            <form onSubmit={handleSetTodoOnSubmit}>
                 <TextField 
                   label='Todo'
                   variant="outlined"  
-                  onChange={(e)=>{}}
-                  value=''
+                  onChange={(e)=>handleSetFieldValue('todoName', e.target.value)}
+                  value={formData.todoName}
                 />
 
                 <TextField 
                   label='Note'
                   variant="outlined"  
-                  onChange={(e)=>{}}
-                  value=''
+                  onChange={(e)=>handleSetFieldValue('todoNote', e.target.value)}
+                  value={formData.todoNote}
                   multiline
                   minRows={4}
                 />
 
                 <DialogActions>
-                    <Button color="primary" onClick={() => {}}>Close</Button> 
-                    <Button disabled={false} type="submit" color="primary" onClick={() => {}}>Add</Button> 
+                    <Button color="primary" onClick={handleOpenDialog}>Close</Button> 
+                    <Button disabled={!formData.todoName} type="submit" color="primary" >{formData.isEdit ? 'Edit' : 'Add'}</Button> 
                 </DialogActions>
             </form>
         </DialogContent>

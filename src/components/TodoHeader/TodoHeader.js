@@ -3,6 +3,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import moment from 'moment';
 import './TodoHeader.css';
 import DialogModal from '../Dialog/DialogModal';
+import DisplayTodo from '../DisplayTodo/DisplayTodo';
 
 const whiteColor = '#fff';
 
@@ -35,18 +36,29 @@ const styles = {
 }
 
 
-const TodoHeader = () => {
+const TodoHeader = ({
+    handleOpenDialog,
+    isOpen,
+    handleSetFieldValue,
+    formData,
+    handleSetTodoOnSubmit,
+    isOpenDisplayTodo,
+    handleCloseButton,
+    handleEditTodo,
+    handleRemoveTodo,
+    totalCount,
+}) => {
     const weekDay = moment().format('dddd');
     const date = moment().date();
     return (
         <div className='todo-header'>
             <div style={styles.wrapper}>
                 <div className='todos-count'>
-                    <span style={styles.finished}>2</span>
+                    <span style={styles.finished}>{totalCount.finished}</span>
 
                     <div style={styles.total}>
                         <span>Tasks</span>
-                        <span>/ 10</span>
+                        <span>{`/ ${totalCount.total}`}</span>
                     </div>
                 </div>
                 <div>
@@ -54,11 +66,26 @@ const TodoHeader = () => {
                   <span style={styles.date}>{date}</span>  
                 </div>
             </div>
-            <div className='add-todo'>
+            <div className='add-todo' onClick={handleOpenDialog}>
                 <AddCircleIcon color='primary' /> 
                 <span className="icon-background" />
             </div>
-            <DialogModal />
+            <DialogModal 
+               isOpen={isOpen}
+               handleOpenDialog={handleOpenDialog} 
+               handleSetFieldValue={handleSetFieldValue}
+               formData={formData}
+               handleSetTodoOnSubmit={handleSetTodoOnSubmit}
+            />
+            <DisplayTodo 
+                formData={formData}
+                isOpen={isOpenDisplayTodo}
+                handleCloseButton={handleCloseButton}
+                handleEditTodo={handleEditTodo}
+                handleRemoveTodo ={handleRemoveTodo}
+
+            />
+
         </div>
     )
 }
